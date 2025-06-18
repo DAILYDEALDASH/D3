@@ -169,27 +169,23 @@
       transform: scale(1.05);
     }
 
-    .deal-card[data-trending="🔥 TRENDING"]::before {
-  content: attr(data-trending);
+   .deal-card[data-trending="🔥 TRENDING"]::before {
+  content: "🔥";
   position: absolute;
-  top: 10px;
-  left: -20px;       /* smaller offset from left */
+  top: 8px;
+  left: -14px;        /* smaller and closer */
   background: #ffd93d;
   color: #1f2d3d;
-  font-weight: bold;
-  font-size: 0.55rem; /* smaller text */
-  padding:  1px 18px;  /* thinner ribbon */
+  font-size: 0.65rem; /* slightly bigger fire emoji */
+  padding: 2px 6px;
   transform: rotate(-45deg);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
   border-radius: 3px;
   user-select: none;
   pointer-events: none;
-  letter-spacing: 0.04em;
   text-align: center;
   white-space: nowrap;
 }
-
-
     .loading, .no-deals, .error {
       text-align: center;
       font-size: 1.6rem;
