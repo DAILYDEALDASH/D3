@@ -169,14 +169,14 @@
       transform: scale(1.05);
     }
 
-   .deal-card[data-trending="🔥 TRENDING"]::before {
+  .deal-card[data-trending]::before {
   content: "🔥";
   position: absolute;
   top: 8px;
-  left: -14px;        /* smaller and closer */
+  left: -14px;
   background: #ffd93d;
   color: #1f2d3d;
-  font-size: 0.65rem; /* slightly bigger fire emoji */
+  font-size: 0.65rem;
   padding: 2px 6px;
   transform: rotate(-45deg);
   box-shadow: 0 2px 5px rgba(0,0,0,0.15);
@@ -186,6 +186,7 @@
   text-align: center;
   white-space: nowrap;
 }
+
     .loading, .no-deals, .error {
       text-align: center;
       font-size: 1.6rem;
