@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>🔥 DailyDealDash - Hot Deals</title>
+  <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Mulish', sans-serif;
+      background: #f5f7fa; /* modern light gray */
+      color: #1f2d3d; /* charcoal navy */
+      min-height: 100vh;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      width: 100%;
+      max-width: 1100px;
+      background: linear-gradient(135deg, #1f2d3d, #3a506b); /* stylish gradient */
+      color: #ffffff;
+      padding: 50px 20px 30px;
+      margin-bottom: 20px;
+      border-bottom-left-radius: 32px;
+      border-bottom-right-radius: 32px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      user-select: none;
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 3.2rem;
+      letter-spacing: 2px;
+      margin: 0;
+    }
+
+    header p {
+      font-weight: 600;
+      font-size: 1.3rem;
+      margin-top: 10px;
+      color: #d0e4ff;
+    }
+
+    #search-container {
+      width: 100%;
+      max-width: 1100px;
+      background: #ffffff;
+      border: 2px solid #3a506b;
+      padding: 12px 20px;
+      border-radius: 16px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      user-select: none;
+    }
+
+    #search-input, #sort-select {
+      padding: 14px 16px;
+      font-size: 1.1rem;
+      border-radius: 12px;
+      border: 2px solid #bcd1e6;
+      background: #f7fafc;
+      color: #1f2d3d;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    #search-input {
+      flex-grow: 1;
+    }
+
+    #search-input::placeholder {
+      color: #a1aab8;
+    }
+
+    #search-input:focus, #sort-select:focus {
+      outline: none;
+      border-color: #ff6b6b;
+      box-shadow: 0 0 8px #ff6b6b80;
+    }
+
+    #sort-select {
+      cursor: pointer;
+    }
+
+    #adsense-container {
+      width: 100%;
+      max-width: 1100px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .deals-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      width: 100%;
+      max-width: 1100px;
+      margin-bottom: 40px;
+    }
+
+    .deal-card {
+      background: #ffffff;
+      border: 2px solid #e0e6ed;
+      border-radius: 12px;
+      padding: 24px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+      transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+      position: relative;
+    }
+
+    .deal-card:hover {
+      border-color: #ff6b6b;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.1);
+      transform: translateY(-4px);
+    }
+
+    .deal-product {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #3a506b;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      user-select: none;
+    }
+
+    .deal-price {
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-bottom: 28px;
+      color: #ff6b6b;
+      user-select: none;
+    }
+
+    .deal-link {
+      align-self: flex-start;
+      text-decoration: none;
+      background: #ff6b6b;
+      color: #ffffff;
+      padding: 12px 28px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1.2rem;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      user-select: none;
+      border: none;
+    }
+
+    .deal-link:hover {
+      background-color: #e04e4e;
+      transform: scale(1.05);
+    }
+
+    .deal-card[data-trending="🔥 TRENDING"]::before {
+      content: attr(data-trending);
+      position: absolute;
+      top: 16px;
+      left: -40px;
+      background: #ffd93d;
+      color: #1f2d3d;
+      font-weight: bold;
+      font-size: 0.75rem;
+      transform: rotate(-45deg);
+      padding: 4px 50px;
+    }
+
+    .loading, .no-deals, .error {
+      text-align: center;
+      font-size: 1.6rem;
+      color: #7a8a9e;
+      grid-column: 1/-1;
+      padding: 50px 0;
+      user-select: none;
+    }
+
+    footer {
+      margin-top: auto;
+      width: 100%;
+      max-width: 1100px;
+      user-select: none;
+      background: #eaf1f8;
+      border-top-left-radius: 32px;
+      border-top-right-radius: 32px;
+      box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.06);
+      padding: 20px 10px 40px;
+      text-align: center;
+      color: #3a506b;
+      font-style: italic;
+    }
+
+    .affiliate-disclaimer {
+      font-size: 0.8rem;
+      margin: 0;
+      font-weight: 400;
+    }
+
+    #trending-container {
+      width: 100%;
+      max-width: 1100px;
+      margin-bottom: 40px;
+    }
+
+    #trending-container h2 {
+      color: #3a506b;
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      margin-bottom: 20px;
+      text-align: center;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>DailyDealDash</h1>
+    <p>Your curated deals, updated daily.</p>
+  </header>
+
+  <div id="search-container">
+    <input
+      type="search"
+      id="search-input"
+      placeholder="Search deals by product name..."
+      aria-label="Search deals"
+    />
+    <select id="sort-select" aria-label="Sort deals">
+      <option value="default">Sort by</option>
+      <option value="price-asc">Price: Low to High</option>
+      <option value="price-desc">Price: High to Low</option>
+      <option value="product-asc">Product: A to Z</option>
+      <option value="product-desc">Product: Z to A</option>
+    </select>
+  </div>
+
+  <div id="adsense-container">
+    <!-- Google AdSense code placeholder -->
+    <ins class="adsbygoogle"
+      style="display:block"
+      data-ad-client="ca-pub-6347576921739272"
+      data-ad-slot="9772263790"
+      data-ad-format="auto"
+      data-full-width-responsive="true"></ins>
+  </div>
+
+  <div id="trending-container">
+    <h2>🔥 Trending Deals</h2>
+    <div id="trending-deals" class="deals-grid"></div>
+  </div>
+
+   <div id="deals-container" class="deals-grid">
+    <p class="loading">Loading deals...</p>
+  </div>
+
+  <footer>
+    <p class="affiliate-disclaimer">
+      This page contains affiliate links. We may earn a commission on purchases made through these links at no extra cost to you.
+    </p>
+  </footer>
+
+  <script>
+  const sheetId = "1x5i0cg5iP9RgcaNswLtUrnXKa4p1evZTgTFtqZltIIc"; // Replace with real Sheet ID
+  const sheetName = "deals";
+  const url = `https://opensheet.elk.sh/${sheetId}/${sheetName}`;
+
+  const container = document.getElementById("deals-container");
+  const trendingContainer = document.getElementById("trending-deals");
+  const searchInput = document.getElementById("search-input");
+  const sortSelect = document.getElementById("sort-select");
+
+  let dealsData = [];
+  let displayedDeals = [];
+  let dealsPerPage = 20;
+  let currentIndex = 0;
+
+  const loadMoreBtn = document.createElement("button");
+  loadMoreBtn.textContent = "Load More Deals";
+  loadMoreBtn.style = `
+    margin: 20px auto;
+    padding: 12px 24px;
+    font-size: 1.2rem;
+    background: #ff6b6b;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  `;
+  loadMoreBtn.addEventListener("mouseover", () => loadMoreBtn.style.background = "#e04e4e");
+  loadMoreBtn.addEventListener("mouseout", () => loadMoreBtn.style.background = "#ff6b6b");
+  loadMoreBtn.addEventListener("click", loadMoreDeals);
+
+  function createDealCard(deal) {
+    const card = document.createElement("div");
+    card.classList.add("deal-card");
+
+    if (deal.trending?.toLowerCase() === 'yes' || deal.trending === '1' || deal.trending?.toLowerCase() === 'true') {
+      card.setAttribute("data-trending", "🔥 TRENDING");
+    }
+
+    const product = document.createElement("div");
+    product.classList.add("deal-product");
+    product.textContent = deal.product || "Unnamed Deal";
+
+    const price = document.createElement("div");
+    price.classList.add("deal-price");
+    price.textContent = deal.price || "";
+
+    const link = document.createElement("a");
+    link.classList.add("deal-link");
+    link.href = deal.link || "#";
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.textContent = "View Deal";
+
+    card.appendChild(product);
+    card.appendChild(price);
+    card.appendChild(link);
+
+    return card;
+  }
+
+  function renderTrendingDeals(deals) {
+    const trendingDeals = deals.filter(d => {
+      const trendingValue = (d.trending || "").toString().toLowerCase();
+      return trendingValue === "yes" || trendingValue === "true" || trendingValue === "1";
+    });
+
+    if (trendingDeals.length === 0) {
+      document.getElementById("trending-container").style.display = "none";
+      return;
+    }
+
+    trendingContainer.innerHTML = "";
+    trendingDeals.forEach(deal => {
+      trendingContainer.appendChild(createDealCard(deal));
+    });
+  }
+
+  function loadMoreDeals() {
+    const remaining = dealsData.length - currentIndex;
+    const nextBatch = dealsData.slice(currentIndex, currentIndex + dealsPerPage);
+    nextBatch.forEach(deal => {
+      container.appendChild(createDealCard(deal));
+    });
+    currentIndex += dealsPerPage;
+
+    if (currentIndex >= dealsData.length) {
+      loadMoreBtn.remove();
+    } else if (!document.body.contains(loadMoreBtn)) {
+      container.after(loadMoreBtn);
+    }
+  }
+
+  function filterAndSortDeals() {
+    const searchTerm = searchInput.value.trim().toLowerCase();
+    let filtered = dealsData;
+
+    if (searchTerm) {
+      filtered = dealsData.filter(deal =>
+        (deal.product || "").toLowerCase().includes(searchTerm)
+      );
+    }
+
+    const sortValue = sortSelect.value;
+    if (sortValue === "price-asc") {
+      filtered.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+    } else if (sortValue === "price-desc") {
+      filtered.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
+    } else if (sortValue === "product-asc") {
+      filtered.sort((a, b) => (a.product || "").localeCompare(b.product || ""));
+    } else if (sortValue === "product-desc") {
+      filtered.sort((a, b) => (b.product || "").localeCompare(a.product || ""));
+    }
+
+    currentIndex = 0;
+    container.innerHTML = "";
+    dealsData = filtered;
+    loadMoreDeals();
+  }
+
+  searchInput.addEventListener("input", filterAndSortDeals);
+  sortSelect.addEventListener("change", filterAndSortDeals);
+
+  fetch(url)
+    .then(response => {
+      if (!response.ok) throw new Error(`Network error ${response.status}`);
+      return response.json();
+    })
+    .then(data => {
+      dealsData = data;
+      renderTrendingDeals(dealsData);
+      filterAndSortDeals();
+    })
+    .catch(error => {
+      container.innerHTML = `<p class="error">Failed to load deals. Please try again later.</p>`;
+      console.error("Error loading deals:", error);
+    });
+
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</body>
+</html>
+
+
+

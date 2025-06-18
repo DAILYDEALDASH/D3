@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><title>Test Sheet</title></head>
+<body>
+  <h1>Deals Test</h1>
+  <pre id="output">Loading...</pre>
+
+  <script>
+    const url = 'https://opensheet.elk.sh/1x5i0cg5iP9RgcaNswLtUrnXKa4p1evZTgTFtqZltIIc/deals';
+
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('output').textContent = JSON.stringify(data, null, 2);
+      })
+      .catch(err => {
+        document.getElementById('output').textContent = 'Error: ' + err.message;
+      });
+  </script>
+</body>
+</html>
