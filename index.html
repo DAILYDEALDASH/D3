@@ -170,25 +170,17 @@
     }
 
     .deal-card[data-trending="🔥 TRENDING"]::before {
-  content: attr(data-trending);
-  position: absolute;
-  top: 12px;
-  right: -40px;
-  background: #ffd93d;
-  color: #1f2d3d;
-  font-weight: bold;
-  font-size: 0.7rem;
-  padding: 4px 28px;
-  transform: rotate(45deg);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-  border-radius: 4px;
-  user-select: none;
-  pointer-events: none;
-  letter-spacing: 0.05em;
-  text-align: center;
-  white-space: nowrap;
-}
-
+      content: attr(data-trending);
+      position: absolute;
+      top: 16px;
+      left: -40px;
+      background: #ffd93d;
+      color: #1f2d3d;
+      font-weight: bold;
+      font-size: 0.75rem;
+      transform: rotate(-45deg);
+      padding: 4px 30px; /* made smaller */
+    }
 
     .loading, .no-deals, .error {
       text-align: center;
@@ -519,3 +511,8 @@
   </script>
 </body>
 </html>
+
+
+
+
+
