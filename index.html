@@ -169,19 +169,17 @@
       transform: scale(1.05);
     }
 
-    /* UPDATED: Remove yellow banner, keep only text + fire emoji */
     .deal-card[data-trending="🔥 TRENDING"]::before {
       content: attr(data-trending);
       position: absolute;
       top: 16px;
-      left: 16px;
-      color: #ff6b6b;
+      left: -40px;
+      background: #ffd93d;
+      color: #1f2d3d;
       font-weight: bold;
-      font-size: 1rem;
-      transform: none;
-      padding: 0;
-      background: none;
-      user-select: none;
+      font-size: 0.75rem;
+      transform: rotate(-45deg);
+      padding: 4px 50px;
     }
 
     .loading, .no-deals, .error {
@@ -231,78 +229,78 @@
 
     /* MOBILE RESPONSIVE STYLES */
     @media (max-width: 480px) {
-      body {
-        padding: 8px 8px;
-      }
+  body {
+    padding: 8px 8px;
+  }
 
-      header {
-        padding: 20px 12px 15px;
-      }
+  header {
+    padding: 20px 12px 15px;
+  }
 
-      header h1 {
-        font-size: 1.8rem;
-        line-height: 1.2;
-      }
+  header h1 {
+    font-size: 1.8rem;
+    line-height: 1.2;
+  }
 
-      header p {
-        font-size: 0.9rem;
-        margin-top: 6px;
-      }
+  header p {
+    font-size: 0.9rem;
+    margin-top: 6px;
+  }
 
-      #search-container {
-        flex-direction: column;
-        padding: 8px 12px;
-        gap: 8px;
-      }
+  #search-container {
+    flex-direction: column;
+    padding: 8px 12px;
+    gap: 8px;
+  }
 
-      #search-input, #sort-select {
-        width: 100%;
-        font-size: 0.9rem;
-        padding: 8px 10px;
-      }
+  #search-input, #sort-select {
+    width: 100%;
+    font-size: 0.9rem;
+    padding: 8px 10px;
+  }
 
-      .deal-product {
-        font-size: 1.3rem;
-        margin-bottom: 6px;
-      }
+  .deal-product {
+    font-size: 1.3rem;
+    margin-bottom: 6px;
+  }
 
-      .deal-price {
-        font-size: 1.1rem;
-        margin-bottom: 12px;
-      }
+  .deal-price {
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+  }
 
-      .deal-link {
-        font-size: 1rem;
-        padding: 8px 14px;
-        align-self: stretch;
-        text-align: center;
-      }
+  .deal-link {
+    font-size: 1rem;
+    padding: 8px 14px;
+    align-self: stretch;
+    text-align: center;
+  }
 
-      #adsense-container {
-        padding: 0 8px;
-      }
+  #adsense-container {
+    padding: 0 8px;
+  }
 
-      #trending-container h2 {
-        font-size: 1.4rem;
-      }
+  #trending-container h2 {
+    font-size: 1.4rem;
+  }
 
-      .deals-grid {
-        gap: 12px;
-        grid-template-columns: 1fr;
-      }
+  .deals-grid {
+    gap: 12px;
+    grid-template-columns: 1fr;
+  }
 
-      footer {
-        padding: 12px 8px 24px;
-        font-size: 0.75rem;
-      }
+  footer {
+    padding: 12px 8px 24px;
+    font-size: 0.75rem;
+  }
 
-      button {
-        font-size: 1rem !important;
-        padding: 10px 14px !important;
-        width: 100% !important;
-        box-sizing: border-box;
-      }
-    }
+  button {
+    font-size: 1rem !important;
+    padding: 10px 14px !important;
+    width: 100% !important;
+    box-sizing: border-box;
+  }
+}
 
   </style>
 </head>
@@ -460,48 +458,44 @@
 
     const sortValue = sortSelect.value;
     if (sortValue === "price-asc") {
-      filtered.sort((a, b) => parseFloat(a.price.replace(/[^0-9.]/g, '')) - parseFloat(b.price.replace(/[^0-9.]/g, '')));
+      filtered.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
     } else if (sortValue === "price-desc") {
-      filtered.sort((a, b) => parseFloat(b.price.replace(/[^0-9.]/g, '')) - parseFloat(a.price.replace(/[^0-9.]/g, '')));
+      filtered.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
     } else if (sortValue === "product-asc") {
       filtered.sort((a, b) => (a.product || "").localeCompare(b.product || ""));
     } else if (sortValue === "product-desc") {
       filtered.sort((a, b) => (b.product || "").localeCompare(a.product || ""));
     }
 
-    displayedDeals = filtered;
     currentIndex = 0;
     container.innerHTML = "";
-    if (displayedDeals.length === 0) {
-      container.innerHTML = '<p class="no-deals">No deals found.</p>';
-      loadMoreBtn.remove();
-      return;
-    }
+    dealsData = filtered;
     loadMoreDeals();
-  }
-
-  async function fetchDeals() {
-    try {
-      const response = await fetch(url);
-      if (!response.ok) throw new Error("Network error");
-      dealsData = await response.json();
-
-      renderTrendingDeals(dealsData);
-
-      filterAndSortDeals();
-    } catch (e) {
-      container.innerHTML = `<p class="error">Failed to load deals. Please try again later.</p>`;
-      console.error(e);
-    }
   }
 
   searchInput.addEventListener("input", filterAndSortDeals);
   sortSelect.addEventListener("change", filterAndSortDeals);
 
-  fetchDeals();
-  </script>
+  fetch(url)
+    .then(response => {
+      if (!response.ok) throw new Error(`Network error ${response.status}`);
+      return response.json();
+    })
+    .then(data => {
+      dealsData = data;
+      renderTrendingDeals(dealsData);
+      filterAndSortDeals();
+    })
+    .catch(error => {
+      container.innerHTML = `<p class="error">Failed to load deals. Please try again later.</p>`;
+      console.error("Error loading deals:", error);
+    });
+
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </body>
 </html>
-
 
 
