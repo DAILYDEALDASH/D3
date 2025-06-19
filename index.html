@@ -482,51 +482,84 @@
   }
 
   function filterAndSortDeals() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const sharedDeal = urlParams.get("deal");
-    const searchTerm = searchInput.value.trim().toLowerCase();
-    let filteredDeals = dealsData;
+  const urlParams = new URLSearchParams(window.location.search);
+  const sharedDeal = urlParams.get("deal");
+  const searchTerm = searchInput.value.trim().toLowerCase();
+  let filteredDeals = dealsData;
 
-    if (sharedDeal) {
-      filteredDeals = dealsData.filter(deal =>
-        (deal.product || "").toLowerCase() === decodeURIComponent(sharedDeal).toLowerCase()
-      );
-    } else if (searchTerm) {
-      filteredDeals = dealsData.filter(deal =>
-        (deal.product || "").toLowerCase().includes(searchTerm)
-      );
-    }
-
-    const sortValue = sortSelect.value;
-    if (sortValue === "price-asc") {
-      filteredDeals.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
-    } else if (sortValue === "price-desc") {
-      filteredDeals.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
-    } else if (sortValue === "product-asc") {
-      filteredDeals.sort((a, b) => (a.product || "").localeCompare(b.product || ""));
-    } else if (sortValue === "product-desc") {
-      filteredDeals.sort((a, b) => (b.product || "").localeCompare(a.product || ""));
-    }
-
-    currentIndex = 0;
-    container.innerHTML = "";
-    displayedDeals = filteredDeals;
-
-    if (displayedDeals.length === 0) {
-      container.innerHTML = '<p class="no-deals">No deals found.</p>';
-      loadMoreBtn.remove();
-      return;
-    }
-
-    const urlHasDeal = !!sharedDeal;
-    if (urlHasDeal) {
-      const singleCard = displayedDeals[0] ? createDealCard(displayedDeals[0]) : null;
-      if (singleCard) container.appendChild(singleCard);
-    } else {
-      loadMoreDeals();
-    }
+  if (sharedDeal) {
+    filteredDeals = dealsData.filter(deal =>
+      (deal.product || "").toLowerCase() === decodeURIComponent(sharedDeal).toLowerCase()
+    );
+  } else if (searchTerm) {
+    filteredDeals = dealsData.filter(deal =>
+      (deal.product || "").toLowerCase().includes(searchTerm)
+    );
   }
 
+  const sortValue = sortSelect.value;
+  if (sortValue === "price-asc") {
+    filteredDeals.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+  } else if (sortValue === "price-desc") {
+    filteredDeals.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
+  } else if (sortValue === "product-asc") {
+    filteredDeals.sort((a, b) => (a.product || "").localeCompare(b.product || ""));
+  } else if (sortValue === "product-desc") {
+    filteredDeals.sort((a, b) => (b.product || "").localeCompare(a.product || ""));
+  }
+
+  currentIndex = 0;
+  container.innerHTML = "";
+  displayedDeals = filteredDeals;
+
+  if (displayedDeals.length === 0) {
+    container.innerHTML = '<p class="no-deals">No deals found.</p>';
+    loadMoreBtn.remove();
+    return;
+  }
+
+  const urlHasDeal = !!sharedDeal;
+  if (urlHasDeal) {
+    // Show only the single deal card
+    const singleCard = displayedDeals[0] ? createDealCard(displayedDeals[0]) : null;
+    if (singleCard) container.appendChild(singleCard);
+
+    // Create "Show All Deals" button
+    const showAllBtn = document.createElement("button");
+    showAllBtn.textContent = "Show All Deals";
+    showAllBtn.style.cssText = `
+      margin: 20px auto;
+      display: block;
+      padding: 12px 24px;
+      font-size: 1.1rem;
+      background: #3a506b;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      user-select: none;
+    `;
+
+    showAllBtn.addEventListener("click", () => {
+      // Remove the deal param from URL without reload
+      const newUrl = window.location.origin + window.location.pathname;
+      history.pushState({}, "", newUrl);
+      // Reset filters and reload all deals
+      searchInput.value = "";
+      sortSelect.value = "default";
+      filterAndSortDeals();
+    });
+
+    container.appendChild(showAllBtn);
+
+    // Remove load more button if it exists
+    loadMoreBtn.remove();
+  } else {
+    // Normal behavior: show deals with load more button
+    loadMoreDeals();
+  }
+}
   async function fetchDeals() {
     try {
       const response = await fetch(url);
