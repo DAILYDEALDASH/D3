@@ -554,33 +554,9 @@
   sortSelect.addEventListener("change", () => {
     filterAndSortDeals();
   });
-function showBackToAllButton() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const sharedDeal = urlParams.get("deal");
 
-  if (sharedDeal) {
-    const backBtn = document.createElement("button");
-    backBtn.textContent = "← Back to All Deals";
-    backBtn.style.cssText = `
-      display: block;
-      margin: 20px auto;
-      padding: 10px 20px;
-      font-size: 1rem;
-      background: #3a506b;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    `;
-    backBtn.addEventListener("click", () => {
-      window.location.href = window.location.pathname; // Clears the query string
-    });
 
-    container.before(backBtn); // Insert above the deals list
-  }
-}
-
-fetchDeals().then(showBackToAllButton);
+fetchDeals();
 </script>
 </body>
 </html>
