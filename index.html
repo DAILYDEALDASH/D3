@@ -479,16 +479,19 @@
     } else if (!document.body.contains(loadMoreBtn)) {
       container.after(loadMoreBtn);
     }
-
-    // Highlight and scroll if shared
-    highlightSharedDeal();
   }
 
   function filterAndSortDeals() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const sharedDeal = urlParams.get("deal");
     const searchTerm = searchInput.value.trim().toLowerCase();
     let filteredDeals = dealsData;
 
-    if (searchTerm) {
+    if (sharedDeal) {
+      filteredDeals = dealsData.filter(deal =>
+        (deal.product || "").toLowerCase() === decodeURIComponent(sharedDeal).toLowerCase()
+      );
+    } else if (searchTerm) {
       filteredDeals = dealsData.filter(deal =>
         (deal.product || "").toLowerCase().includes(searchTerm)
       );
@@ -515,7 +518,13 @@
       return;
     }
 
-    loadMoreDeals();
+    const urlHasDeal = !!sharedDeal;
+    if (urlHasDeal) {
+      const singleCard = displayedDeals[0] ? createDealCard(displayedDeals[0]) : null;
+      if (singleCard) container.appendChild(singleCard);
+    } else {
+      loadMoreDeals();
+    }
   }
 
   async function fetchDeals() {
@@ -538,22 +547,6 @@
     }
   }
 
-  function highlightSharedDeal() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const sharedDeal = urlParams.get("deal");
-    if (!sharedDeal) return;
-
-    const cards = container.querySelectorAll(".deal-card");
-    for (const card of cards) {
-      const product = card.querySelector(".deal-product");
-      if (product && product.textContent.toLowerCase() === decodeURIComponent(sharedDeal).toLowerCase()) {
-        card.scrollIntoView({ behavior: "smooth", block: "center" });
-        card.style.outline = "3px solid #ff6b6b";
-        break;
-      }
-    }
-  }
-
   searchInput.addEventListener("input", () => {
     filterAndSortDeals();
   });
@@ -564,8 +557,6 @@
 
   fetchDeals();
 </script>
-
-
 </body>
 </html>
 
