@@ -9,6 +9,7 @@
     * {
       box-sizing: border-box;
     }
+
     body {
       margin: 0;
       font-family: 'Mulish', sans-serif;
@@ -20,6 +21,7 @@
       flex-direction: column;
       align-items: center;
     }
+
     header {
       width: 100%;
       max-width: 1100px;
@@ -33,6 +35,7 @@
       text-align: center;
       user-select: none;
     }
+
     header h1 {
       font-family: 'Playfair Display', serif;
       font-weight: 700;
@@ -40,12 +43,14 @@
       letter-spacing: 2px;
       margin: 0;
     }
+
     header p {
       font-weight: 600;
       font-size: 1.3rem;
       margin-top: 10px;
       color: #d0e4ff;
     }
+
     #search-container {
       width: 100%;
       max-width: 1100px;
@@ -60,6 +65,7 @@
       align-items: center;
       user-select: none;
     }
+
     #search-input, #sort-select {
       padding: 14px 16px;
       font-size: 1.1rem;
@@ -69,20 +75,25 @@
       color: #1f2d3d;
       transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
+
     #search-input {
       flex-grow: 1;
     }
+
     #search-input::placeholder {
       color: #a1aab8;
     }
+
     #search-input:focus, #sort-select:focus {
       outline: none;
       border-color: #ff6b6b;
       box-shadow: 0 0 8px #ff6b6b80;
     }
+
     #sort-select {
       cursor: pointer;
     }
+
     #adsense-container {
       width: 100%;
       max-width: 1100px;
@@ -90,6 +101,7 @@
       display: flex;
       justify-content: center;
     }
+
     .deals-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -98,6 +110,7 @@
       max-width: 1100px;
       margin-bottom: 40px;
     }
+
     .deal-card {
       background: #ffffff;
       border: 2px solid #e0e6ed;
@@ -111,11 +124,13 @@
       transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
       position: relative;
     }
+
     .deal-card:hover {
       border-color: #ff6b6b;
       box-shadow: 0 8px 22px rgba(0, 0, 0, 0.1);
       transform: translateY(-4px);
     }
+
     .deal-product {
       font-family: 'Playfair Display', serif;
       font-size: 2rem;
@@ -126,6 +141,7 @@
       letter-spacing: 1.2px;
       user-select: none;
     }
+
     .deal-price {
       font-size: 1.6rem;
       font-weight: 600;
@@ -133,6 +149,7 @@
       color: #ff6b6b;
       user-select: none;
     }
+
     .deal-link {
       align-self: flex-start;
       text-decoration: none;
@@ -146,27 +163,31 @@
       user-select: none;
       border: none;
     }
+
     .deal-link:hover {
       background-color: #e04e4e;
       transform: scale(1.05);
     }
+
     .deal-card[data-trending]::before {
-      content: "🔥";
-      position: absolute;
-      top: 8px;
-      left: -14px;
-      background: #ffd93d;
-      color: #1f2d3d;
-      font-size: 0.65rem;
-      padding: 2px 6px;
-      transform: rotate(-45deg);
-      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
-      border-radius: 3px;
-      user-select: none;
-      pointer-events: none;
-      text-align: center;
-      white-space: nowrap;
-    }
+  content: "🔥";
+  position: absolute;
+  top: 8px;
+  left: -14px;
+  background: #ffd93d;
+  color: #1f2d3d;
+  font-size: 0.65rem;
+  padding: 2px 6px;
+  transform: rotate(-45deg);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  border-radius: 3px;
+  user-select: none;
+  pointer-events: none;
+  text-align: center;
+  white-space: nowrap;
+}
+
+
     .loading, .no-deals, .error {
       text-align: center;
       font-size: 1.6rem;
@@ -175,6 +196,7 @@
       padding: 50px 0;
       user-select: none;
     }
+
     footer {
       margin-top: auto;
       width: 100%;
@@ -189,62 +211,95 @@
       color: #3a506b;
       font-style: italic;
     }
+
     .affiliate-disclaimer {
       font-size: 0.8rem;
       margin: 0;
       font-weight: 400;
     }
+
+    #trending-container {
+      width: 100%;
+      max-width: 1100px;
+      margin-bottom: 40px;
+    }
+
+    #trending-container h2 {
+      color: #3a506b;
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      margin-bottom: 20px;
+      text-align: center;
+      user-select: none;
+    }
+
     /* MOBILE RESPONSIVE STYLES */
     @media (max-width: 480px) {
       body {
         padding: 8px 8px;
       }
+
       header {
         padding: 20px 12px 15px;
       }
+
       header h1 {
         font-size: 1.8rem;
         line-height: 1.2;
       }
+
       header p {
         font-size: 0.9rem;
         margin-top: 6px;
       }
+
       #search-container {
         flex-direction: column;
         padding: 8px 12px;
         gap: 8px;
       }
+
       #search-input, #sort-select {
         width: 100%;
         font-size: 0.9rem;
         padding: 8px 10px;
       }
+
       .deal-product {
         font-size: 1.3rem;
         margin-bottom: 6px;
       }
+
       .deal-price {
         font-size: 1.1rem;
         margin-bottom: 12px;
       }
+
       .deal-link {
         font-size: 1rem;
         padding: 8px 14px;
         align-self: stretch;
         text-align: center;
       }
+
       #adsense-container {
         padding: 0 8px;
       }
+
+      #trending-container h2 {
+        font-size: 1.4rem;
+      }
+
       .deals-grid {
         gap: 12px;
         grid-template-columns: 1fr;
       }
+
       footer {
         padding: 12px 8px 24px;
         font-size: 0.75rem;
       }
+
       button {
         font-size: 1rem !important;
         padding: 10px 14px !important;
@@ -253,10 +308,6 @@
       }
     }
   </style>
-
-  <!-- Google AdSense script -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-
 </head>
 <body>
   <header>
@@ -275,13 +326,13 @@
       <option value="default">Sort by</option>
       <option value="price-asc">Price: Low to High</option>
       <option value="price-desc">Price: High to Low</option>
-      <option value="product-asc">Name: A to Z</option>
-      <option value="product-desc">Name: Z to A</option>
+      <option value="product-asc">Product: A to Z</option>
+      <option value="product-desc">Product: Z to A</option>
     </select>
   </div>
 
-  <!-- Google AdSense Ad Container -->
-  <div id="adsense-container" style="width: 100%; max-width: 1100px; margin-bottom: 20px; display: flex; justify-content: center;">
+  <div id="adsense-container">
+    <!-- Google AdSense code placeholder -->
     <ins class="adsbygoogle"
       style="display:block"
       data-ad-client="ca-pub-6347576921739272"
@@ -290,166 +341,261 @@
       data-full-width-responsive="true"></ins>
   </div>
 
-  <script>
-    (adsbygoogle = window.adsbygoogle || []).push({});
-  </script>
+  <div id="trending-container">
+    <h2>🔥 Trending Deals</h2>
+    <div id="trending-deals" class="deals-grid"></div>
+  </div>
 
-  <main id="deals-container" class="deals-grid" aria-live="polite" aria-label="Deals listing">
-<div id="deals-container"></div>
-  </main>
+  <div id="deals-container" class="deals-grid">
+    <p class="loading">Loading deals...</p>
+  </div>
 
   <footer>
     <p class="affiliate-disclaimer">
-      Some links on this site are affiliate links. We may earn a commission if you purchase through these links.
+      This page contains affiliate links. We may earn a commission on purchases made through these links at no extra cost to you.
     </p>
   </footer>
 
-  <script>
-    const sheetId = "1x5i0cg5iP9RgcaNswLtUrnXKa4p1evZTgTFtqZltIIc"; // <-- Replace this with your actual Google Sheet ID
-    const sheetName = "deals";
-    const url = `https://opensheet.elk.sh/${sheetId}/${sheetName}`;
+ <script>
+  const sheetId = "1x5i0cg5iP9RgcaNswLtUrnXKa4p1evZTgTFtqZltIIc"; // Replace with your real Sheet ID
+  const sheetName = "deals";
+  const url = `https://opensheet.elk.sh/${sheetId}/${sheetName}`;
 
-    const container = document.getElementById("deals-container");
-    const searchInput = document.getElementById("search-input");
-    const sortSelect = document.getElementById("sort-select");
+  const container = document.getElementById("deals-container");
+  const trendingContainer = document.getElementById("trending-deals");
+  const searchInput = document.getElementById("search-input");
+  const sortSelect = document.getElementById("sort-select");
 
-    let dealsData = [];
-    let displayedDeals = [];
-    const dealsPerPage = 20;
-    let currentIndex = 0;
+  let dealsData = [];
+  let displayedDeals = [];
+  let dealsPerPage = 20;
+  let currentIndex = 0;
 
-    // Load More button
-    const loadMoreBtn = document.createElement("button");
-    loadMoreBtn.textContent = "Load More Deals";
-    loadMoreBtn.style.cssText = `
-      margin: 20px auto;
-      padding: 12px 24px;
-      font-size: 1.2rem;
-      background: #ff6b6b;
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s ease;
-      display: block;
-    `;
-    loadMoreBtn.addEventListener("mouseover", () => loadMoreBtn.style.background = "#e04e4e");
-    loadMoreBtn.addEventListener("mouseout", () => loadMoreBtn.style.background = "#ff6b6b");
-    loadMoreBtn.addEventListener("click", () => {
-      currentIndex += dealsPerPage;
-      renderDeals(displayedDeals.slice(0, currentIndex));
-    });
+  const loadMoreBtn = document.createElement("button");
+  loadMoreBtn.textContent = "Load More Deals";
+  loadMoreBtn.style.cssText = `
+    margin: 20px auto;
+    padding: 12px 24px;
+    font-size: 1.2rem;
+    background: #ff6b6b;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    display: block;
+  `;
+  loadMoreBtn.addEventListener("mouseover", () => loadMoreBtn.style.background = "#e04e4e");
+  loadMoreBtn.addEventListener("mouseout", () => loadMoreBtn.style.background = "#ff6b6b");
+  loadMoreBtn.addEventListener("click", loadMoreDeals);
 
-    function createDealCard(deal) {
-      const card = document.createElement("div");
-      card.className = "deal-card";
-      if (deal.trending === "TRUE" || deal.trending === true) {
-        card.setAttribute("data-trending", "true");
-      }
+  function createDealCard(deal) {
+    const card = document.createElement("div");
+    card.classList.add("deal-card");
 
-      const productName = document.createElement("h2");
-      productName.className = "deal-product";
-      productName.textContent = deal.product;
-
-      const price = document.createElement("div");
-      price.className = "deal-price";
-      price.textContent = `₹${deal.price}`;
-
-      const link = document.createElement("a");
-      link.className = "deal-link";
-      link.href = deal.link;
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
-      link.textContent = "Buy Now";
-
-      card.appendChild(productName);
-      card.appendChild(price);
-      card.appendChild(link);
-
-      return card;
+    if (deal.trending?.toLowerCase() === 'yes' || deal.trending === '1' || deal.trending?.toLowerCase() === 'true') {
+      card.setAttribute("data-trending", "🔥 TRENDING");
     }
 
-    function renderDeals(deals) {
-      container.innerHTML = "";
+    const product = document.createElement("div");
+    product.classList.add("deal-product");
+    product.textContent = deal.product || "Unnamed Deal";
 
-      if (deals.length === 0) {
-        const noDeals = document.createElement("p");
-        noDeals.className = "no-deals";
-        noDeals.textContent = "No deals found.";
-        container.appendChild(noDeals);
-        loadMoreBtn.style.display = "none";
+    const price = document.createElement("div");
+    price.classList.add("deal-price");
+    price.textContent = deal.price || "";
+
+    const linkButton = document.createElement("a");
+    linkButton.classList.add("deal-link");
+    linkButton.href = deal.link || "#";
+    linkButton.target = "_blank";
+    linkButton.rel = "noopener noreferrer";
+    linkButton.textContent = "View Deal";
+
+    // ✅ Copy Link Button
+    const shareBtn = document.createElement("button");
+    shareBtn.textContent = "Copy Link";
+    shareBtn.style.cssText = `
+      margin-top: 10px;
+      background: #3a506b;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.95rem;
+    `;
+
+    const dealId = encodeURIComponent(deal.product || deal.id || "deal");
+    const currentUrl = window.location.origin + window.location.pathname;
+    const shareUrl = `${currentUrl}?deal=${dealId}`;
+
+    shareBtn.addEventListener("click", () => {
+      navigator.clipboard.writeText(shareUrl).then(() => {
+        shareBtn.textContent = "Link Copied!";
+        setTimeout(() => {
+          shareBtn.textContent = "Copy Link";
+        }, 2000);
+      });
+    });
+
+    card.appendChild(product);
+    card.appendChild(price);
+    card.appendChild(linkButton);
+    card.appendChild(shareBtn);
+
+    return card;
+  }
+
+  function renderTrendingDeals(deals) {
+    const trendingDeals = deals.filter(d => {
+      const trendingValue = (d.trending || "").toString().toLowerCase();
+      return trendingValue === "yes" || trendingValue === "true" || trendingValue === "1";
+    });
+
+    if (trendingDeals.length === 0) {
+      document.getElementById("trending-container").style.display = "none";
+      return;
+    }
+
+    trendingContainer.innerHTML = "";
+    trendingDeals.forEach(deal => {
+      trendingContainer.appendChild(createDealCard(deal));
+    });
+  }
+
+  function loadMoreDeals() {
+    const remaining = displayedDeals.length - currentIndex;
+    const nextBatch = displayedDeals.slice(currentIndex, currentIndex + dealsPerPage);
+    nextBatch.forEach(deal => {
+      const card = createDealCard(deal);
+      container.appendChild(card);
+    });
+    currentIndex += dealsPerPage;
+
+    if (currentIndex >= displayedDeals.length) {
+      loadMoreBtn.remove();
+    } else if (!document.body.contains(loadMoreBtn)) {
+      container.after(loadMoreBtn);
+    }
+  }
+
+  function filterAndSortDeals() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const sharedDeal = urlParams.get("deal");
+  const searchTerm = searchInput.value.trim().toLowerCase();
+  let filteredDeals = dealsData;
+
+  if (sharedDeal) {
+    filteredDeals = dealsData.filter(deal =>
+      (deal.product || "").toLowerCase() === decodeURIComponent(sharedDeal).toLowerCase()
+    );
+  } else if (searchTerm) {
+    filteredDeals = dealsData.filter(deal =>
+      (deal.product || "").toLowerCase().includes(searchTerm)
+    );
+  }
+
+  const sortValue = sortSelect.value;
+  if (sortValue === "price-asc") {
+    filteredDeals.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+  } else if (sortValue === "price-desc") {
+    filteredDeals.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
+  } else if (sortValue === "product-asc") {
+    filteredDeals.sort((a, b) => (a.product || "").localeCompare(b.product || ""));
+  } else if (sortValue === "product-desc") {
+    filteredDeals.sort((a, b) => (b.product || "").localeCompare(a.product || ""));
+  }
+
+  currentIndex = 0;
+  container.innerHTML = "";
+  displayedDeals = filteredDeals;
+
+  if (displayedDeals.length === 0) {
+    container.innerHTML = '<p class="no-deals">No deals found.</p>';
+    loadMoreBtn.remove();
+    return;
+  }
+
+  const urlHasDeal = !!sharedDeal;
+  if (urlHasDeal) {
+    // Show only the single deal card
+    const singleCard = displayedDeals[0] ? createDealCard(displayedDeals[0]) : null;
+    if (singleCard) container.appendChild(singleCard);
+
+    // Create "Show All Deals" button
+    const showAllBtn = document.createElement("button");
+    showAllBtn.textContent = "Show All Deals";
+    showAllBtn.style.cssText = `
+      margin: 20px auto;
+      display: block;
+      padding: 12px 24px;
+      font-size: 1.1rem;
+      background: #3a506b;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      user-select: none;
+    `;
+
+    showAllBtn.addEventListener("click", () => {
+      // Remove the deal param from URL without reload
+      const newUrl = window.location.origin + window.location.pathname;
+      history.pushState({}, "", newUrl);
+      // Reset filters and reload all deals
+      searchInput.value = "";
+      sortSelect.value = "default";
+      filterAndSortDeals();
+    });
+
+    container.appendChild(showAllBtn);
+
+    // Remove load more button if it exists
+    loadMoreBtn.remove();
+  } else {
+    // Normal behavior: show deals with load more button
+    loadMoreDeals();
+  }
+}
+  async function fetchDeals() {
+    try {
+      const response = await fetch(url);
+      if (!response.ok) throw new Error("Network response was not ok");
+      const data = await response.json();
+
+      if (!Array.isArray(data) || data.length === 0) {
+        container.innerHTML = '<p class="no-deals">No deals available at the moment.</p>';
         return;
       }
 
-      deals.forEach(deal => {
-        container.appendChild(createDealCard(deal));
-      });
-
-      if (deals.length < displayedDeals.length) {
-        container.appendChild(loadMoreBtn);
-        loadMoreBtn.style.display = "block";
-      } else {
-        loadMoreBtn.style.display = "none";
-      }
+      dealsData = data;
+      renderTrendingDeals(dealsData);
+      filterAndSortDeals();
+    } catch (error) {
+      container.innerHTML = `<p class="error">Failed to load deals. Please try again later.</p>`;
+      console.error(error);
     }
+  }
 
-    function filterAndSortDeals() {
-      const searchTerm = searchInput.value.toLowerCase();
+  searchInput.addEventListener("input", () => {
+    filterAndSortDeals();
+  });
 
-      displayedDeals = dealsData.filter(deal =>
-        deal.product.toLowerCase().includes(searchTerm)
-      );
+  sortSelect.addEventListener("change", () => {
+    filterAndSortDeals();
+  });
 
-      const sortBy = sortSelect.value;
-
-      switch (sortBy) {
-        case "price-asc":
-          displayedDeals.sort((a, b) => Number(a.price) - Number(b.price));
-          break;
-        case "price-desc":
-          displayedDeals.sort((a, b) => Number(b.price) - Number(a.price));
-          break;
-        case "product-asc":
-          displayedDeals.sort((a, b) => a.product.localeCompare(b.product));
-          break;
-        case "product-desc":
-          displayedDeals.sort((a, b) => b.product.localeCompare(a.product));
-          break;
-        default:
-          // no sorting
-          break;
-      }
-
-      currentIndex = dealsPerPage;
-      renderDeals(displayedDeals.slice(0, currentIndex));
-    }
-
-    async function fetchDeals() {
-      container.innerHTML = `<p class="loading">Loading deals...</p>`;
-      try {
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error(`HTTP error: ${response.status}`);
-        }
-        const data = await response.json();
-
-        if (!Array.isArray(data) || data.length === 0) {
-          container.innerHTML = `<p class="no-deals">No deals available right now.</p>`;
-          return;
-        }
-
-        dealsData = data;
-        filterAndSortDeals();
-      } catch (error) {
-        container.innerHTML = `<p class="error">Failed to load deals: ${error.message}</p>`;
-      }
-    }
-
-    searchInput.addEventListener("input", filterAndSortDeals);
-    sortSelect.addEventListener("change", filterAndSortDeals);
-
-    fetchDeals();
-  </script>
+  fetchDeals();
+</script>
 </body>
 </html>
+
+
+
+
+
+
+
